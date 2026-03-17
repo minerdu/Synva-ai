@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Industry Solutions — AI-Powered Growth for Every Industry | Synva.ai</title>
+  <meta name="description" content="Industry-specific AI solutions for B2B Overseas, B2B Industrial, SaaS, Education, E-Commerce, and Retail. Full-cycle AI implementation with proven results.">
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ===== Solutions Layout ===== */
+    .sol-wrapper { display: flex; min-height: 100vh; }
+
+    /* --- Premium Sidebar --- */
+    .sol-sidebar {
+      width: 260px; flex-shrink: 0; position: sticky; top: 72px; height: calc(100vh - 72px);
+      background: linear-gradient(180deg, #0a0a0a 0%, #050505 100%);
+      border-right: 1px solid var(--color-border); z-index: 10; overflow-y: auto;
+    }
+    .sol-sidebar__inner { padding: 36px 0; }
+    .sol-sidebar__label {
+      font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700;
+      color: var(--color-text-muted); padding: 0 24px; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .sol-sidebar__label::after { content: ''; flex: 1; height: 1px; background: var(--color-border); }
+    .sol-sidebar a {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 24px; font-size: 0.88rem; font-weight: 500;
+      color: var(--color-text-muted); text-decoration: none;
+      border-left: 3px solid transparent; transition: all 0.3s ease;
+    }
+    .sol-sidebar a i { width: 18px; font-size: 0.85rem; text-align: center; opacity: 0.6; transition: all 0.3s ease; }
+    .sol-sidebar a:hover { color: var(--color-text-secondary); background: rgba(255,255,255,0.02); }
+    .sol-sidebar a.active { color: white; background: rgba(59,130,246,0.06); border-left-color: var(--color-blue); font-weight: 600; }
+    .sol-sidebar a.active i { opacity: 1; }
+    /* Per-industry sidebar colors — always colored text */
+    .sol-sidebar a[href="#b2b-overseas"] { color: #3b82f6; }
+    .sol-sidebar a[href="#b2b-overseas"] i { color: #3b82f6; opacity: 0.8; }
+    .sol-sidebar a[href="#b2b-overseas"].active { color: #60a5fa; border-left-color: #3b82f6; background: rgba(59,130,246,0.08); }
+
+    .sol-sidebar a[href="#b2b-industrial"] { color: #8b5cf6; }
+    .sol-sidebar a[href="#b2b-industrial"] i { color: #8b5cf6; opacity: 0.8; }
+    .sol-sidebar a[href="#b2b-industrial"].active { color: #a78bfa; border-left-color: #8b5cf6; background: rgba(139,92,246,0.08); }
+
+    .sol-sidebar a[href="#saas"] { color: #22c55e; }
+    .sol-sidebar a[href="#saas"] i { color: #22c55e; opacity: 0.8; }
+    .sol-sidebar a[href="#saas"].active { color: #4ade80; border-left-color: #22c55e; background: rgba(34,197,94,0.08); }
+
+    .sol-sidebar a[href="#education"] { color: #f59e0b; }
+    .sol-sidebar a[href="#education"] i { color: #f59e0b; opacity: 0.8; }
+    .sol-sidebar a[href="#education"].active { color: #fbbf24; border-left-color: #f59e0b; background: rgba(245,158,11,0.08); }
+
+    .sol-sidebar a[href="#ecommerce"] { color: #ec4899; }
+    .sol-sidebar a[href="#ecommerce"] i { color: #ec4899; opacity: 0.8; }
+    .sol-sidebar a[href="#ecommerce"].active { color: #f472b6; border-left-color: #ec4899; background: rgba(236,72,153,0.08); }
+
+    .sol-sidebar a[href="#retail"] { color: #06b6d4; }
+    .sol-sidebar a[href="#retail"] i { color: #06b6d4; opacity: 0.8; }
+    .sol-sidebar a[href="#retail"].active { color: #22d3ee; border-left-color: #06b6d4; background: rgba(6,182,212,0.08); }
+
+    /* --- Main Content --- */
+    .sol-main { flex: 1; min-width: 0; }
+    .sol-section { padding: 80px 0 100px; border-bottom: 1px solid var(--color-border); }
+    .sol-section .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--section-px); }
+
+    /* Section headers with industry color */
+    .sol-section__badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; font-size: 0.75rem; font-weight: 600; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+    .sol-section__title { font-size: clamp(1.75rem, 3.5vw, 2.5rem); margin-bottom: 12px; }
+    .sol-section__subtitle { color: var(--color-text-secondary); font-size: 1rem; max-width: 780px; line-height: 1.7; margin-bottom: 56px; }
+
+    /* Industry color themes */
+    .industry-blue { --ind-color: #3b82f6; --ind-glow: rgba(59,130,246,0.12); --ind-border: rgba(59,130,246,0.25); }
+    .industry-purple { --ind-color: #8b5cf6; --ind-glow: rgba(139,92,246,0.12); --ind-border: rgba(139,92,246,0.25); }
+    .industry-green { --ind-color: #22c55e; --ind-glow: rgba(34,197,94,0.12); --ind-border: rgba(34,197,94,0.25); }
+    .industry-amber { --ind-color: #f59e0b; --ind-glow: rgba(245,158,11,0.12); --ind-border: rgba(245,158,11,0.25); }
+    .industry-pink { --ind-color: #ec4899; --ind-glow: rgba(236,72,153,0.12); --ind-border: rgba(236,72,153,0.25); }
+    .industry-cyan { --ind-color: #06b6d4; --ind-glow: rgba(6,182,212,0.12); --ind-border: rgba(6,182,212,0.25); }
+
+    /* Step card */
+    .sol-step { margin-bottom: 56px; }
+    .sol-step:last-child { margin-bottom: 0; }
+    .sol-step__card {
+      background: var(--color-bg-card); border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg); padding: 28px 32px; margin-bottom: 20px;
+      position: relative; overflow: hidden; transition: border-color 0.3s ease;
+    }
+    .sol-step__card:hover { border-color: var(--color-border-hover); }
+    .sol-step__card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--ind-color); }
+    .sol-step__num { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; margin-bottom: 8px; color: var(--ind-color); }
+    .sol-step__title { font-size: 1.15rem; font-weight: 700; color: white; margin-bottom: 10px; }
+    .sol-step__desc { font-size: 0.92rem; color: var(--color-text-secondary); line-height: 1.8; }
+    .sol-step__image { width: 100%; border-radius: var(--radius-lg); border: 1px solid var(--color-border); overflow: hidden; }
+    .sol-step__image img { width: 100%; display: block; }
+
+    /* Keyword highlight */
+    .kw { font-weight: 600; }
+
+    /* Mobile */
+    .sol-mobile-nav { display: none; overflow-x: auto; -webkit-overflow-scrolling: touch; border-bottom: 1px solid var(--color-border); background: #050505; padding: 12px 16px; gap: 8px; position: sticky; top: 72px; z-index: 10; }
+    .sol-mobile-nav a { white-space: nowrap; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; background: var(--color-bg-alt); color: var(--color-text-secondary); border: 1px solid var(--color-border); text-decoration: none; transition: var(--transition-base); }
+    .sol-mobile-nav a:hover, .sol-mobile-nav a.active { color: white; border-color: var(--color-blue); }
+    @media (max-width: 900px) {
+      .sol-sidebar { display: none; }
+      .sol-mobile-nav { display: flex; }
+      .sol-section { padding: 48px 0 64px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo"><div class="header__logo-icon">S</div>Synva.ai</a>
+      <nav class="header__nav">
+        <a href="product.html">AI Workers</a>
+        <a href="agents.html">AI Agents</a>
+        <a href="solutions.html" class="active">Solutions</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="contact.html" class="header__cta header__cta-desktop">Book a Demo</a>
+      <button class="header__mobile-btn" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" style="padding-bottom: 48px;">
+    <div class="hero__bg"></div>
+    <div class="container text-center">
+      <h1 class="hero__title">All Industries. <span class="text-gradient">Only Growth.</span></h1>
+      <p class="hero__subtitle">We don't talk about cost savings. We only focus on customer acquisition and revenue growth.</p>
+    </div>
+  </section>
+
+  <!-- ===== Mobile Industry Nav ===== -->
+  <div class="sol-mobile-nav">
+    <a href="#b2b-overseas">B2B Overseas</a>
+    <a href="#b2b-industrial">B2B Product</a>
+    <a href="#saas">SaaS</a>
+    <a href="#education">Education</a>
+    <a href="#ecommerce">E-Commerce</a>
+    <a href="#retail">Retail</a>
+  </div>
+
+  <!-- ===== Solutions Layout ===== -->
+  <div class="sol-wrapper">
+
+    <!-- Sidebar -->
+    <aside class="sol-sidebar">
+      <div class="sol-sidebar__inner">
+        <div class="sol-sidebar__label">Industries</div>
+        <a href="#b2b-overseas" class="active"><i class="fas fa-globe"></i> B2B Overseas</a>
+        <a href="#b2b-industrial"><i class="fas fa-industry"></i> B2B Product</a>
+        <a href="#saas"><i class="fas fa-cloud"></i> SaaS & B2B</a>
+        <a href="#education"><i class="fas fa-graduation-cap"></i> Education</a>
+        <a href="#ecommerce"><i class="fas fa-shopping-bag"></i> E-Commerce</a>
+        <a href="#retail"><i class="fas fa-store"></i> Retail</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="sol-main">
+
+      <!-- ========== B2B OVERSEAS ========== -->
+      <section class="sol-section industry-blue" id="b2b-overseas">
+        <div class="container">
+          <div class="sol-section__badge" style="background: var(--ind-glow); color: var(--ind-color); border: 1px solid var(--ind-border);"><i class="fas fa-globe"></i> B2B Overseas</div>
+          <h2 class="sol-section__title">Automated Global Growth & <span style="color: var(--ind-color);">Expansion</span></h2>
+          <p class="sol-section__subtitle">Cross-timezone × multilingual × 24h high-intent inquiry engagement + expert-level custom proposals in 15 minutes + reactivate dormant CRM data + proactive replenishment based on inventory cycles.</p>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 01</div>
+              <div class="sol-step__title">Cross-Timezone × Multilingual × <span style="color: var(--ind-color);">24h Inquiry Engagement</span></div>
+              <div class="sol-step__desc">A German buyer browses your new 140W charger on your website at <span class="kw" style="color: var(--ind-color);">Berlin afternoon (Shenzhen midnight)</span>. AI Worker #1 instantly engages in German, screening budget and purchase volume — ensuring no cross-timezone opportunity is ever lost.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/B2B Oversea 1.jpeg" alt="Cross-timezone multilingual engagement"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 02</div>
+              <div class="sol-step__title">Expert-Level <span style="color: var(--ind-color);">Custom Proposals in 15 Minutes</span></div>
+              <div class="sol-step__desc">Facing a complex North American OEM customization and compliance inquiry, <span class="kw" style="color: var(--ind-color);">AI Worker #2</span> takes key requirements and generates a full English custom proposal PPT within <span class="kw" style="color: var(--ind-color);">15 minutes</span> — pulling from the latest product library and certification documents.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/B2B Oversea 2.jpeg" alt="Custom proposal generation"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 03</div>
+              <div class="sol-step__title">High-Value Industry Reports to <span style="color: var(--ind-color);">Reactivate Dormant Leads</span></div>
+              <div class="sol-step__desc">With tens of thousands of post-tradeshow contacts going silent in the CRM, <span class="kw" style="color: var(--ind-color);">AI Worker #1</span> rhythmically sends high-value industry reports while the Lead Acquisition Agent auto-follows key decision-makers on <span class="kw" style="color: var(--ind-color);">LinkedIn</span> — building brand authority and reigniting demand.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/B2B Oversea 3.jpeg" alt="Reactivating dormant leads"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 04</div>
+              <div class="sol-step__title">Proactive Replenishment Based on <span style="color: var(--ind-color);">Inventory Cycles</span></div>
+              <div class="sol-step__desc">After delivery, <span class="kw" style="color: var(--ind-color);">AI Worker #3</span> continuously monitors customer data: "Alert: European distributor's docking station inventory turnover rate spiked — <span class="kw" style="color: var(--ind-color);">projected stockout next month</span>." The Upsell Agent instantly generates a Replenishment & New Product Proposal and proactively reaches out to the purchasing manager.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/B2B Oversea 4.jpeg" alt="Proactive replenishment"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== B2B PRODUCT ========== -->
+      <section class="sol-section industry-purple" id="b2b-industrial">
+        <div class="container">
+          <div class="sol-section__badge" style="background: var(--ind-glow); color: var(--ind-color); border: 1px solid var(--ind-border);"><i class="fas fa-industry"></i> B2B Product</div>
+          <h2 class="sol-section__title">Digital Transformation for <span style="color: var(--ind-color);">Industrial Sales</span></h2>
+          <p class="sol-section__subtitle">Auto-generate technical articles to attract inbound leads + 10-minute OEM ROI reports + leverage firmware updates to re-engage customers + smart consumable repurchasing to prevent churn.</p>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 01</div>
+              <div class="sol-step__title">Auto-Generate <span style="color: var(--ind-color);">Technical Articles</span> to Attract Inbound Leads</div>
+              <div class="sol-step__desc">AI detects "<span class="kw" style="color: var(--ind-color);">nylon carbon fiber (PA-CF) print warping</span>" as a trending pain point. AI Worker #1 auto-writes an engineering guide and publishes it to tech communities. When an automotive R&D engineer downloads and registers, they're auto-tagged as "high-value R&D prospect."</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/B2B Product 1.jpeg" alt="Technical content lead generation"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 02</div>
+              <div class="sol-step__title"><span style="color: var(--ind-color);">10-Minute OEM Factory</span> ROI Report</div>
+              <div class="sol-step__desc">Facing a figurine manufacturer's "50-unit print farm" inquiry, <span class="kw" style="color: var(--ind-color);">AI Worker #2</span> combines the client's 3D models with estimated daily throughput, equipment depreciation and power costs — generating a <span class="kw" style="color: var(--ind-color);">4-month break-even analysis</span> that eliminates profitability concerns with real data.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/B2B Product 2.jpeg" alt="ROI report generation"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 03</div>
+              <div class="sol-step__title">Leverage <span style="color: var(--ind-color);">Product Updates</span> to Re-Engage Customers</div>
+              <div class="sol-step__desc">When a "motor noise reduction" firmware update ships, AI Worker #1 auto-filters <span class="kw" style="color: var(--ind-color);">2,000+ dormant education-sector customers</span> tagged "noisy printing" and sends targeted comparison videos showing <span class="kw" style="color: var(--ind-color);">50% noise reduction</span> — plus renewal coupons.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/B2B Product 3.jpeg" alt="Product update re-engagement"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 04</div>
+              <div class="sol-step__title">Smart <span style="color: var(--ind-color);">Consumable Repurchasing</span> to Prevent Churn</div>
+              <div class="sol-step__desc">When AI detects a design firm's multi-color supply system drops below <span class="kw" style="color: var(--ind-color);">10% capacity</span> with increasing job queue, AI Worker #3 auto-sends an OEM Consumable Replenishment List with enterprise discount to the procurement manager — locking in long-term consumable revenue.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/B2B Product 4.jpeg" alt="Smart consumable repurchasing"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SaaS ========== -->
+      <section class="sol-section industry-green" id="saas">
+        <div class="container">
+          <div class="sol-section__badge" style="background: var(--ind-glow); color: var(--ind-color); border: 1px solid var(--ind-border);"><i class="fas fa-cloud"></i> SaaS & B2B Services</div>
+          <h2 class="sol-section__title">Fully Automated Sales for <span style="color: var(--ind-color);">SaaS & B2B</span></h2>
+          <p class="sol-section__subtitle">Capture complex enterprise inquiries + build custom demo environments in 15 minutes + auto-send industry reports to stay top-of-mind + detect churn signals and trigger upsells.</p>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 01</div>
+              <div class="sol-step__title">Capture <span style="color: var(--ind-color);">Complex Enterprise Inquiries</span></div>
+              <div class="sol-step__desc">A retail chain's HR Director asks late at night: "Can you handle <span class="kw" style="color: var(--ind-color);">complex payroll with base pay + commission + comprehensive working hours</span>, compatible with multi-region compliance?" AI Worker #1 confirms capability from the knowledge base and pushes a relevant case study instantly.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/SAAS 1.jpeg" alt="Complex enterprise inquiry handling"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 02</div>
+              <div class="sol-step__title"><span style="color: var(--ind-color);">Custom Demo Environment</span> in 15 Minutes</div>
+              <div class="sol-step__desc">Facing a manufacturer's demo request, <span class="kw" style="color: var(--ind-color);">AI Worker #2</span> auto-generates a test account with workshop piece-rate logic, attendance rules, and simulated employee data in <span class="kw" style="color: var(--ind-color);">15 minutes</span>. Sales can immediately demo the live system — drastically lowering decision friction.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/SAAS 2.jpeg" alt="Custom demo environment"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 03</div>
+              <div class="sol-step__title"><span style="color: var(--ind-color);">Industry Reports</span> to Stay Top-of-Mind</div>
+              <div class="sol-step__desc">For prospects who go silent after a demo, AI Worker #1 rhythmically pushes <span class="kw" style="color: var(--ind-color);">high-value content matched to their industry</span> — maintaining planned touch until conversion with industry reports and peer case studies.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/SAAS 3.jpeg" alt="Industry report nurturing"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 04</div>
+              <div class="sol-step__title">Detect <span style="color: var(--ind-color);">Churn Signals</span> & Trigger Upsells</div>
+              <div class="sol-step__desc">When the system detects a client's "<span class="kw" style="color: var(--ind-color);">R&D department overtime surge + satisfaction plunge</span>," AI Worker #3 predicts high attrition risk and auto-generates a Talent Retention Advisory, recommending a wellbeing package — completing a high-value upsell.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/SAAS 4.jpeg" alt="Churn detection and upsell"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== EDUCATION ========== -->
+      <section class="sol-section industry-amber" id="education">
+        <div class="container">
+          <div class="sol-section__badge" style="background: var(--ind-glow); color: var(--ind-color); border: 1px solid var(--ind-border);"><i class="fas fa-graduation-cap"></i> Education & Training</div>
+          <h2 class="sol-section__title">Student Conversion Engine for <span style="color: var(--ind-color);">Corporate Training</span></h2>
+          <p class="sol-section__subtitle">Standardized SOP to capture traffic + auto-close during trial bootcamps + persistent content nurturing + expand from single training to annual contracts.</p>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 01</div>
+              <div class="sol-step__title">Standardized SOP to <span style="color: var(--ind-color);">Capture Inbound Traffic</span></div>
+              <div class="sol-step__desc">AI Worker #1 auto-executes the SOP: sends course outlines and instructor profiles, then guides prospects into a "<span class="kw" style="color: var(--ind-color);">7-Day Management Bootcamp</span>." During the bootcamp, it pushes course videos and management tools on schedule — no human effort needed.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/Education 1.jpeg" alt="Standardized SOP traffic capture"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 02</div>
+              <div class="sol-step__title"><span style="color: var(--ind-color);">Auto-Close</span> During Trial Bootcamp</div>
+              <div class="sol-step__desc">Before the bootcamp ends, AI Worker #1 auto-identifies <span class="kw" style="color: var(--ind-color);">high-completion-rate attendees</span> and pushes industry case studies plus limited-time bulk purchase offers. By providing ROI calculations and discounts, it helps HR secure budget approval and close the deal.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/Education 2.jpeg" alt="Trial bootcamp conversion"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 03</div>
+              <div class="sol-step__title">Persistent <span style="color: var(--ind-color);">Content Nurturing</span> Until Conversion</div>
+              <div class="sol-step__desc">For prospects who didn't sign due to budget or process delays, AI Worker #1 adopts a <span class="kw" style="color: var(--ind-color);">consultative nurturing strategy</span>. It auto-sends high-value industry reports weekly, building trust with professional content to become the top partner for the next procurement cycle.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/Education 3.jpeg" alt="Content nurturing"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 04</div>
+              <div class="sol-step__title">From Single Training to <span style="color: var(--ind-color);">Annual Contracts</span></div>
+              <div class="sol-step__desc">After a training engagement ends, <span class="kw" style="color: var(--ind-color);">AI Worker #3</span> integrates satisfaction surveys and assessment data to deliver a visual <span class="kw" style="color: var(--ind-color);">Talent Capability Report</span>. Based on identified skill gaps, it auto-matches advanced courses — accelerating renewal and locking in the next contract.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/Education 4.jpeg" alt="Annual contract expansion"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== E-COMMERCE ========== -->
+      <section class="sol-section industry-pink" id="ecommerce">
+        <div class="container">
+          <div class="sol-section__badge" style="background: var(--ind-glow); color: var(--ind-color); border: 1px solid var(--ind-border);"><i class="fas fa-shopping-bag"></i> Cross-border E-Commerce</div>
+          <h2 class="sol-section__title">24/7 Global Seeding, Activation & <span style="color: var(--ind-color);">Sales</span></h2>
+          <p class="sol-section__subtitle">Region-specific AI content × virtual model localized shoots + cross-timezone multilingual inquiry handling + social media activation + automated repurchase.</p>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 01</div>
+              <div class="sol-step__title">Region-Specific Content × <span style="color: var(--ind-color);">Virtual Model Localized Shoots</span></div>
+              <div class="sol-step__desc">AI Worker #1 intelligently adapts to regional aesthetics — generating "<span class="kw" style="color: var(--ind-color);">natural & dynamic</span>" visuals for North America and "<span class="kw" style="color: var(--ind-color);">conservative & elegant</span>" looks for the Middle East with localized digital model content. Distributed across Instagram, TikTok, and WhatsApp for full-funnel seeding.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/E-Commerce 1.jpeg" alt="Localized content generation"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 02</div>
+              <div class="sol-step__title">Cross-Timezone × Multilingual × <span style="color: var(--ind-color);">24h Inquiry Handling</span></div>
+              <div class="sol-step__desc">For a German customer browsing in Berlin afternoon, <span class="kw" style="color: var(--ind-color);">AI Worker #1</span> becomes a 24/7 German-speaking consultant. After screening budget and purchase volume, it addresses complex OEM pain points by auto-retrieving from the knowledge base and generating a German-language custom proposal.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/E-Commerce 2.jpeg" alt="Multilingual inquiry handling"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 03</div>
+              <div class="sol-step__title">Social Media Activation × <span style="color: var(--ind-color);">Dormant Order Recovery</span></div>
+              <div class="sol-step__desc">For thousands of dormant users in the CRM, AI Worker #1 auto-generates <span class="kw" style="color: var(--ind-color);">KOL-style visuals and short videos</span>. Through high-frequency distribution on Instagram, TikTok, and WhatsApp with limited-time rewards and trial invitations, it batch-reactivates dormant leads.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/E-Commerce 3.jpeg" alt="Social media activation"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 04</div>
+              <div class="sol-step__title">Ultimate Unboxing Experience × <span style="color: var(--ind-color);">Automated Repurchase</span></div>
+              <div class="sol-step__desc">After order delivery, <span class="kw" style="color: var(--ind-color);">AI Worker #3</span> pushes unboxing videos and care tips, guiding review sharing. It leverages new product launches and sales events to auto-send <span class="kw" style="color: var(--ind-color);">exclusive rebuy coupons and matching style recommendations</span> — locking in long-term repurchase through precision operations.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/E-Commerce 4.jpeg" alt="Automated repurchase"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== RETAIL ========== -->
+      <section class="sol-section industry-cyan" id="retail">
+        <div class="container">
+          <div class="sol-section__badge" style="background: var(--ind-glow); color: var(--ind-color); border: 1px solid var(--ind-border);"><i class="fas fa-store"></i> Retail & E-Commerce</div>
+          <h2 class="sol-section__title">Double Offline & Online <span style="color: var(--ind-color);">Private Domain Sales</span></h2>
+          <p class="sol-section__subtitle">Smart product selection × high-conversion content + hyper-personalized guidance × auto promotions + content reactivation + wallet lock-in automated repurchase.</p>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 01</div>
+              <div class="sol-step__title">Smart Product Selection × <span style="color: var(--ind-color);">High-Conversion Content</span></div>
+              <div class="sol-step__desc">AI detects "<span class="kw" style="color: var(--ind-color);">lightweight hiking</span>" trending on social media and precisely matches windbreaker SKUs. For different audiences — college students, working professionals — it auto-generates 10 sets of differentiated seeding copy and shoppable short videos, completing full-channel precision acquisition.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/Retail 1.jpeg" alt="Smart product selection"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 02</div>
+              <div class="sol-step__title">Hyper-Personalized Guidance × <span style="color: var(--ind-color);">Auto Promotions</span></div>
+              <div class="sol-step__desc">When traffic enters the private domain or website, <span class="kw" style="color: var(--ind-color);">AI Worker #1</span> instantly engages — precisely answering deep queries like "fabric breathability." For hesitators who linger 30+ seconds on checkout, it pushes a "<span class="kw" style="color: var(--ind-color);">15-minute first-order gift</span>" — boosting conversion with precision incentives.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/Retail 2.jpeg" alt="Personalized guidance"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 03</div>
+              <div class="sol-step__title">High-Value Content to <span style="color: var(--ind-color);">Reactivate Dormant Leads</span></div>
+              <div class="sol-step__desc">For massive "follow-but-never-buy" dormant users in the CRM, AI Worker #1 generates <span class="kw" style="color: var(--ind-color);">deep educational content based on seasonal pain points</span>. Through tiered push + dynamic frequency strategies, it uses professional content to break the ice and batch-convert ghost followers into active buyers.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/Retail 3.jpeg" alt="Content reactivation"></div>
+          </div>
+
+          <div class="sol-step reveal">
+            <div class="sol-step__card">
+              <div class="sol-step__num">Step 04</div>
+              <div class="sol-step__title">Wallet Lock-In <span style="color: var(--ind-color);">Automated Repurchase</span></div>
+              <div class="sol-step__desc"><span class="kw" style="color: var(--ind-color);">AI Worker #3</span> first provides expert usage guidance for first-order customers. On <span class="kw" style="color: var(--ind-color);">Day 7</span> — the critical repurchase window — it auto-triggers "second item half off" or "advanced combo deals," converting one-time purchases into recurring buying habits.</div>
+            </div>
+            <div class="sol-step__image"><img src="images/solutions/Retail 4.jpeg" alt="Automated repurchase"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="sol-section" style="text-align: center; border-bottom: none;">
+        <div class="container">
+          <h2 style="margin-bottom: 16px;">Don't See Your Industry?</h2>
+          <p style="margin-bottom: 40px; max-width: 520px; margin-left: auto; margin-right: auto;">Our AI workers are customizable for any B2B or B2C revenue model. Talk to our team about a tailored solution.</p>
+          <a href="contact.html" class="btn btn--primary btn--lg">Get a Custom Solution <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="header__logo" style="margin-bottom: 8px;"><div class="header__logo-icon">S</div>Synva.ai</a>
+          <p>Synva builds autonomous AI workers that handle the entire B2B revenue cycle — from lead generation to customer retention.</p>
+          <div style="display: flex; gap: 12px; margin-top: 16px;">
+            <a href="#" target="_blank" aria-label="X" style="width: 36px; height: 36px; border-radius: 8px; background: var(--color-bg-alt); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); transition: var(--transition-base);"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" target="_blank" aria-label="LinkedIn" style="width: 36px; height: 36px; border-radius: 8px; background: var(--color-bg-alt); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); transition: var(--transition-base);"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" target="_blank" aria-label="YouTube" style="width: 36px; height: 36px; border-radius: 8px; background: var(--color-bg-alt); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); transition: var(--transition-base);"><i class="fab fa-youtube"></i></a>
+            <a href="#" target="_blank" aria-label="Instagram" style="width: 36px; height: 36px; border-radius: 8px; background: var(--color-bg-alt); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); transition: var(--transition-base);"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank" aria-label="TikTok" style="width: 36px; height: 36px; border-radius: 8px; background: var(--color-bg-alt); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); transition: var(--transition-base);"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+        <div><h4 class="footer__heading">Product</h4><div class="footer__links"><a href="product.html">AI Workers</a><a href="agents.html">AI Agents</a></div></div>
+        <div><h4 class="footer__heading">Solutions</h4><div class="footer__links"><a href="solutions.html#b2b-overseas">B2B Overseas</a><a href="solutions.html#b2b-industrial">B2B Product</a><a href="solutions.html#saas">SaaS</a><a href="solutions.html#education">Education</a><a href="solutions.html#ecommerce">E-Commerce</a><a href="solutions.html#retail">Retail</a></div></div>
+        <div><h4 class="footer__heading">Pricing</h4><div class="footer__links"><a href="pricing.html">SaaS Plans</a><a href="pricing.html">Consulting Services</a></div></div>
+        <div><h4 class="footer__heading">Company</h4><div class="footer__links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy Policy</a></div></div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2025 Synva LLC. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sidebarLinks = document.querySelectorAll('.sol-sidebar a, .sol-mobile-nav a');
+      const sections = document.querySelectorAll('.sol-section[id]');
+      function updateActive() {
+        let current = '';
+        sections.forEach(s => { if (s.getBoundingClientRect().top < 200) current = s.id; });
+        sidebarLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
+      }
+      window.addEventListener('scroll', updateActive);
+      updateActive();
+      sidebarLinks.forEach(l => {
+        l.addEventListener('click', function(e) {
+          e.preventDefault();
+          const t = document.querySelector(this.getAttribute('href'));
+          if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    });
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>
