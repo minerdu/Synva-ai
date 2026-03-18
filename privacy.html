@@ -9,23 +9,24 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    .legal-content { max-width: 800px; margin: 0 auto; }
-    .legal-content h2 { font-size: 1.5rem; margin-top: 56px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--color-border); }
-    .legal-content h3 { font-size: 1.15rem; margin-top: 32px; margin-bottom: 12px; color: var(--color-text); }
-    .legal-content p, .legal-content li { font-size: 0.95rem; color: var(--color-text-secondary); line-height: 1.8; margin-bottom: 12px; }
-    .legal-content ul { padding-left: 24px; margin-bottom: 16px; }
-    .legal-content ul li { list-style: disc; margin-bottom: 8px; }
-    .legal-content a { color: var(--color-blue); transition: var(--transition-fast); }
-    .legal-content a:hover { color: white; }
-    .compliance-badges { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0; }
-    .compliance-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 0.85rem; color: var(--color-text-secondary); }
-    .compliance-badge i { color: var(--color-green); }
-    .legal-toc { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 28px 32px; margin-bottom: 48px; }
-    .legal-toc h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); margin-bottom: 14px; }
+    .legal-content { max-width: 860px; margin: 0 auto; padding: 48px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); border-radius: var(--radius-xl); backdrop-filter: blur(16px); position: relative; overflow: hidden; }
+    .legal-content::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), transparent); }
+    .legal-content h2 { font-size: 1.75rem; margin-top: 48px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--color-border); color: white; display: flex; align-items: center; gap: 12px; }
+    .legal-content h3 { font-size: 1.25rem; margin-top: 32px; margin-bottom: 16px; color: #e2e8f0; font-weight: 700; }
+    .legal-content p, .legal-content li { font-size: 1.05rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 16px; }
+    .legal-content ul { padding-left: 24px; margin-bottom: 24px; }
+    .legal-content ul li { list-style: circle; margin-bottom: 10px; color: #a1a1aa; }
+    .legal-content a { color: #60a5fa; text-decoration: none; transition: var(--transition-fast); border-bottom: 1px dashed rgba(96, 165, 250, 0.4); }
+    .legal-content a:hover { color: #8b5cf6; border-bottom-color: #8b5cf6; }
+    .compliance-badges { display: flex; flex-wrap: wrap; gap: 16px; margin: 32px 0 48px 0; }
+    .compliance-badge { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: rgba(34, 197, 94, 0.05); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: var(--radius-full); font-size: 0.9rem; color: #e2e8f0; font-weight: 500; }
+    .compliance-badge i { color: #4ade80; }
+    .legal-toc { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 32px 40px; margin-bottom: 48px; }
+    .legal-toc h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; color: #60a5fa; margin-bottom: 16px; font-weight: 700; }
     .legal-toc ol { padding-left: 20px; }
-    .legal-toc li { list-style: decimal; font-size: 0.9rem; margin-bottom: 6px; }
-    .legal-toc a { color: var(--color-text-secondary); }
-    .legal-toc a:hover { color: var(--color-blue); }
+    .legal-toc li { list-style: decimal; font-size: 0.95rem; margin-bottom: 10px; color: #94a3b8; }
+    .legal-toc a { border-bottom: none; color: #cbd5e1; font-weight: 500; }
+    .legal-toc a:hover { color: white; border-bottom: none; }
   </style>
 </head>
 <body>
@@ -33,7 +34,16 @@
   <!-- ===== Header ===== -->
   <header class="header">
     <div class="header__inner">
-      <a href="index.html" class="header__logo"><div class="header__logo-icon">S</div>Synva.ai</a>
+      <a href="index.html" class="header__logo">
+        <svg width="44" height="44" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.3));">
+          <path d="M 20 2 L 34 10 L 20 18 L 6 10 Z" fill="#a855f7" />
+          <path d="M 34 10 L 34 26 L 20 34 L 20 18 Z" fill="#6366f1" />
+          <path d="M 6 10 L 20 18 L 20 34 L 6 26 Z" fill="rgba(79, 70, 229, 0.4)" />
+          <path d="M 12 14.5 L 27.5 5.5" stroke="#050505" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 28 19.5 L 12.5 28.5" stroke="#050505" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        Synva
+      </a>
       <nav class="header__nav">
         <a href="product.html">AI Workers</a>
         <a href="agents.html">AI Agents</a>
@@ -49,9 +59,10 @@
 
   <!-- ===== Hero ===== -->
   <section class="hero" style="padding-bottom: 48px;">
-    <div class="hero__bg"></div>
-    <div class="container text-center">
-      <h1 class="hero__title" style="font-size: clamp(2rem, 4vw, 3rem);">Privacy <span class="text-gradient">Policy</span></h1>
+    <div class="hero__bg" style="background: radial-gradient(ellipse at top, rgba(139, 92, 246, 0.12) 0%, #050505 50%);"></div>
+    <div class="container text-center" style="position: relative; z-index: 2;">
+      <span class="badge badge--purple" style="margin-bottom: 24px;">Legal & Security</span>
+      <h1 class="hero__title" style="margin-bottom: 16px;">Privacy <span style="color: #c084fc;">Policy</span></h1>
       <p class="hero__subtitle" style="font-size: 1rem;">Last updated: March 2025</p>
     </div>
   </section>
@@ -217,7 +228,6 @@
         <p>If you have any questions about this Privacy Policy, your data, or our privacy practices, please contact us:</p>
         <div style="background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 24px; margin-top: 16px;">
           <p style="margin-bottom: 8px;"><strong>Synva LLC</strong></p>
-          <p style="margin-bottom: 4px;">30 N Gould St Ste N, Sheridan, WY 82801</p>
           <p style="margin-bottom: 4px;">Email: <a href="mailto:support@synva.ai">support@synva.ai</a></p>
           <p style="margin-bottom: 0;">Phone: <a href="tel:+16072322444">(607) 232-2444</a></p>
         </div>
@@ -231,7 +241,16 @@
     <div class="container">
       <div class="footer__grid">
         <div class="footer__brand">
-          <a href="index.html" class="header__logo" style="margin-bottom: 8px;"><div class="header__logo-icon">S</div>Synva.ai</a>
+          <a href="index.html" class="header__logo" style="margin-bottom: 8px;">
+        <svg width="44" height="44" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.3));">
+          <path d="M 20 2 L 34 10 L 20 18 L 6 10 Z" fill="#a855f7" />
+          <path d="M 34 10 L 34 26 L 20 34 L 20 18 Z" fill="#6366f1" />
+          <path d="M 6 10 L 20 18 L 20 34 L 6 26 Z" fill="rgba(79, 70, 229, 0.4)" />
+          <path d="M 12 14.5 L 27.5 5.5" stroke="#050505" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 28 19.5 L 12.5 28.5" stroke="#050505" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        Synva
+      </a>
           <p>Synva builds autonomous AI workers that handle the entire B2B revenue cycle.</p>
           <div style="display: flex; gap: 12px; margin-top: 16px;">
             <a href="#" target="_blank" aria-label="X" style="width: 36px; height: 36px; border-radius: 8px; background: var(--color-bg-alt); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); transition: var(--transition-base);"><i class="fab fa-x-twitter"></i></a>

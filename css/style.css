@@ -14,8 +14,8 @@
   --color-bg-card: #111111;
   --color-bg-elevated: #1a1a1a;
   --color-text: #ffffff;
-  --color-text-secondary: #a1a1aa;
-  --color-text-muted: #71717a;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
   --color-border: rgba(255, 255, 255, 0.08);
   --color-border-hover: rgba(255, 255, 255, 0.15);
 
@@ -190,7 +190,7 @@ p {
   color: var(--color-text);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
 }
 
 .header__logo-icon {

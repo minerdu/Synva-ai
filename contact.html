@@ -9,26 +9,50 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    .contact-hero { padding-top: 140px; padding-bottom: 60px; position: relative; }
-    .contact-hero__bg { position: absolute; inset: 0; background: var(--gradient-hero-bg); z-index: -1; }
-    .contact-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: start; }
-    .contact-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
-    .contact-card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 24px; transition: var(--transition-base); }
-    .contact-card:hover { border-color: var(--color-border-hover); transform: translateY(-2px); }
-    .contact-card__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-size: 1.1rem; }
-    .contact-card__label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 6px; }
-    .contact-card__value { font-size: 0.95rem; color: white; font-weight: 500; }
-    .contact-card__value a { color: var(--color-blue); transition: var(--transition-fast); }
-    .contact-card__value a:hover { color: white; }
-    .contact-social-row { display: flex; gap: 10px; margin-top: 24px; }
-    .contact-social-btn { display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 0.85rem; color: var(--color-text-secondary); transition: var(--transition-base); flex: 1; white-space: nowrap; }
-    .contact-social-btn:hover { border-color: var(--color-border-hover); color: white; }
-    .form-card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: 40px; }
-    .form-card h2 { font-size: 1.5rem; margin-bottom: 6px; }
-    .form-card p { font-size: 0.9rem; margin-bottom: 28px; }
-    @media (max-width: 900px) {
-      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-      .contact-methods { grid-template-columns: 1fr; }
+    .contact-layout { padding-top: 160px; padding-bottom: 100px; position: relative; overflow: hidden; }
+    /* Premium AI Glow Background */
+    .contact-glow { position: absolute; top: 10%; right: 10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(139,92,246,0.1) 40%, transparent 70%); filter: blur(60px); z-index: -1; pointer-events: none; }
+    .contact-glow-2 { position: absolute; bottom: -10%; left: -5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(236,72,153,0.1) 0%, rgba(59,130,246,0.05) 50%, transparent 70%); filter: blur(80px); z-index: -1; pointer-events: none; }
+    
+    .contact-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: stretch; position: relative; z-index: 1; }
+    
+    /* Super Premium Form Glassmorphism */
+    .premium-form-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 48px; box-shadow: 0 24px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; height: 100%; box-sizing: border-box; }
+    .premium-form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(59,130,246,0.5), transparent); }
+    
+    /* Input Styling for AI SaaS */
+    .premium-input { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 16px 20px; color: white; font-size: 0.95rem; transition: all 0.3s ease; outline: none; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); box-sizing: border-box; }
+    .premium-input:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); }
+    .premium-input:focus { border-color: var(--color-blue); background: rgba(15,23,42,0.8); box-shadow: 0 0 0 3px rgba(59,130,246,0.2), inset 0 2px 4px rgba(0,0,0,0.1); }
+    .premium-input::placeholder { color: var(--color-text-muted); }
+    select.premium-input { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 48px; }
+    select.premium-input option { background: #0f172a; color: white; }
+    
+    .form-group-p { margin-bottom: 24px; }
+    .form-label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 8px; }
+    
+    /* Submit Button */
+    .btn-premium { width: 100%; background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; border: none; border-radius: 12px; padding: 18px; font-weight: 600; font-size: 1.05rem; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 8px 20px rgba(59,130,246,0.3); }
+    .btn-premium:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(59,130,246,0.4); }
+    .btn-premium::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; transform: scale(0.5); pointer-events: none; }
+    .btn-premium:hover::after { opacity: 1; transform: scale(1); }
+
+    /* Left Info Column */
+    .hero-title-premium { font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; color: white; }
+    .hero-subtitle-premium { font-size: 1.25rem; color: var(--color-text-secondary); line-height: 1.6; max-width: 540px; margin-bottom: 48px; }
+    
+    .info-item { display: flex; align-items: flex-start; gap: 24px; padding: 24px; border-radius: 16px; transition: background 0.3s ease; border: 1px solid transparent; }
+    .info-item:hover { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.05); }
+    .info-icon { width: 56px; height: 56px; border-radius: 16px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--color-blue); flex-shrink: 0; box-shadow: inset 0 2px 10px rgba(255,255,255,0.05); }
+    
+    .social-premium-row { display: flex; gap: 16px; margin-top: 24px; }
+    .social-premium-btn { width: 48px; height: 48px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; transition: all 0.3s ease; color: var(--color-text-secondary); }
+    .social-premium-btn:hover { transform: translateY(-3px); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); color: white; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+    
+    @media (max-width: 992px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 64px; }
+      .hero-title-premium { font-size: 3rem; }
+      .premium-form-card { padding: 32px 24px; height: auto; }
     }
   </style>
 </head>
@@ -37,7 +61,16 @@
   <!-- ===== Header ===== -->
   <header class="header">
     <div class="header__inner">
-      <a href="index.html" class="header__logo"><div class="header__logo-icon">S</div>Synva.ai</a>
+      <a href="index.html" class="header__logo">
+        <svg width="44" height="44" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.3));">
+          <path d="M 20 2 L 34 10 L 20 18 L 6 10 Z" fill="#a855f7" />
+          <path d="M 34 10 L 34 26 L 20 34 L 20 18 Z" fill="#6366f1" />
+          <path d="M 6 10 L 20 18 L 20 34 L 6 26 Z" fill="rgba(79, 70, 229, 0.4)" />
+          <path d="M 12 14.5 L 27.5 5.5" stroke="#050505" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 28 19.5 L 12.5 28.5" stroke="#050505" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        Synva
+      </a>
       <nav class="header__nav">
         <a href="product.html">AI Workers</a>
         <a href="agents.html">AI Agents</a>
@@ -51,135 +84,144 @@
     </div>
   </header>
 
-  <!-- ===== Hero ===== -->
-  <div class="contact-hero">
-    <div class="contact-hero__bg"></div>
+  <!-- ===== Premium Layout ===== -->
+  <section class="contact-layout">
+    <div class="contact-glow"></div>
+    <div class="contact-glow-2"></div>
     <div class="container">
-      <span class="badge badge--blue" style="margin-bottom: 16px;">Let's Connect</span>
-      <h1 style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 12px;">Get in <span class="text-gradient">Touch</span></h1>
-      <p style="max-width: 520px; font-size: 1.05rem;">Book a demo, ask a question, or explore how AI workers can accelerate your revenue. We typically respond within 4 hours.</p>
-    </div>
-  </div>
+      <!-- Centered Hero Typography -->
+      <div style="text-align: center; max-width: 800px; margin: 0 auto 64px auto;">
+        <h1 class="hero__title" style="margin-bottom: 24px;">Let's Build the <span class="text-gradient">Future of Work.</span></h1>
+        <p class="hero__subtitle" style="color: #e2e8f0; margin-left: auto; margin-right: auto; font-size: 1.15rem; line-height: 1.8;">Whether you're exploring custom enterprise deployment or need technical support, our team is ready to accelerate your journey.</p>
+      </div>
 
-  <!-- ===== Main Content ===== -->
-  <section class="section" style="padding-top: 0;">
-    <div class="container">
       <div class="contact-grid">
-
-        <!-- Left: Contact Info -->
-        <div>
-          <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Contact Information</h3>
-          <p style="font-size: 0.9rem;">Reach us directly or fill out the form — whichever works best for you.</p>
-
-          <div class="contact-methods">
-            <div class="contact-card">
-              <div class="contact-card__icon" style="background: rgba(59,130,246,0.1);"><i class="fas fa-envelope" style="color: var(--color-blue);"></i></div>
-              <div class="contact-card__label">General</div>
-              <div class="contact-card__value"><a href="mailto:hi@synva.ai">hi@synva.ai</a></div>
-            </div>
-            <div class="contact-card">
-              <div class="contact-card__icon" style="background: rgba(139,92,246,0.1);"><i class="fas fa-headset" style="color: var(--color-purple);"></i></div>
-              <div class="contact-card__label">Support</div>
-              <div class="contact-card__value"><a href="mailto:support@synva.ai">support@synva.ai</a></div>
-            </div>
-            <div class="contact-card">
-              <div class="contact-card__icon" style="background: rgba(234,179,8,0.1);"><i class="fas fa-chart-line" style="color: var(--color-yellow);"></i></div>
-              <div class="contact-card__label">Sales</div>
-              <div class="contact-card__value"><a href="mailto:sales@synva.ai">sales@synva.ai</a></div>
-            </div>
-            <div class="contact-card">
-              <div class="contact-card__icon" style="background: rgba(34,197,94,0.1);"><i class="fas fa-phone" style="color: var(--color-green);"></i></div>
-              <div class="contact-card__label">Phone</div>
-              <div class="contact-card__value"><a href="tel:+16072322444">(607) 232-2444</a></div>
-            </div>
-          </div>
-
-          <!-- Office -->
-          <div class="contact-card" style="margin-top: 16px;">
-            <div style="display: flex; align-items: flex-start; gap: 16px;">
-              <div class="contact-card__icon" style="background: rgba(255,255,255,0.04); flex-shrink: 0;"><i class="fas fa-building" style="color: var(--color-text-muted);"></i></div>
-              <div>
-                <div class="contact-card__label">Office</div>
-                <div class="contact-card__value">Synva LLC<br>30 N Gould St Ste N<br>Sheridan, WY 82801</div>
+        
+        <!-- Left: Branding & Info (FLEX COLUMN FOR EQUAL HEIGHT) -->
+        <div style="padding-top: 24px; padding-bottom: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 100%; box-sizing: border-box;">
+          
+          <div>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <!-- Sales -->
+              <div class="info-item">
+                <div class="info-icon" style="color: #3b82f6;"><i class="fas fa-chart-line"></i></div>
+                <div>
+                  <h4 style="font-size: 1.35rem; font-weight: 700; color: #60a5fa; margin-bottom: 8px;">Enterprise Sales</h4>
+                  <p style="font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 12px; line-height: 1.5; max-width: 320px;">Explore tailored pricing, schedule an architectural review, or request a custom demo.</p>
+                  <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <a href="mailto:sales@synva.ai" style="color: var(--color-text); font-weight: 500; font-size: 0.95rem; transition: color 0.2s;"><span style="color: var(--color-text-muted); margin-right: 8px;">Email</span> sales@synva.ai</a>
+                    <a href="tel:+16072322444" style="color: var(--color-text); font-weight: 500; font-size: 0.95rem; transition: color 0.2s;"><span style="color: var(--color-text-muted); margin-right: 8px;">Phone</span> (607) 232-2444</a>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Support -->
+              <div class="info-item">
+                <div class="info-icon" style="color: #8b5cf6;"><i class="fas fa-life-ring"></i></div>
+                <div>
+                  <h4 style="font-size: 1.35rem; font-weight: 700; color: #c084fc; margin-bottom: 8px;">Support & Billing</h4>
+                  <p style="font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 12px; line-height: 1.5; max-width: 320px;">Get technical assistance, account setup help, or billing configuration.</p>
+                  <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <a href="mailto:support@synva.ai" style="color: var(--color-text); font-weight: 500; font-size: 0.95rem; display: flex; align-items: center;"><span style="color: #a78bfa; margin-right: 12px; width: 60px;">Tech</span> support@synva.ai</a>
+                    <a href="mailto:billing@synva.ai" style="color: var(--color-text); font-weight: 500; font-size: 0.95rem; display: flex; align-items: center;"><span style="color: #c4b5fd; margin-right: 12px; width: 60px;">Finance</span> billing@synva.ai</a>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- General -->
+              <div class="info-item">
+                <div class="info-icon" style="color: #ec4899;"><i class="fas fa-building"></i></div>
+                <div>
+                  <h4 style="font-size: 1.35rem; font-weight: 700; color: #f472b6; margin-bottom: 8px;">General Inquiries</h4>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <a href="mailto:hi@synva.ai" style="color: var(--color-text); font-weight: 500; font-size: 0.95rem;">hi@synva.ai</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
-          <!-- Social -->
-          <div class="contact-social-row">
-            <a href="#" target="_blank" class="contact-social-btn"><i class="fab fa-x-twitter"></i> X</a>
-            <a href="#" target="_blank" class="contact-social-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-            <a href="#" target="_blank" class="contact-social-btn"><i class="fab fa-youtube"></i> YouTube</a>
-            <a href="#" target="_blank" class="contact-social-btn"><i class="fab fa-instagram"></i> INS</a>
-            <a href="#" target="_blank" class="contact-social-btn"><i class="fab fa-tiktok"></i> TikTok</a>
+          
+          <div style="padding-left: 24px; margin-top: auto;">
+            <p style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); font-weight: 700;">Follow Our Journey</p>
+            <div class="social-premium-row">
+              <a href="#" class="social-premium-btn" aria-label="X" style="color: #ffffff;"><i class="fab fa-x-twitter"></i></a>
+              <a href="#" class="social-premium-btn" aria-label="LinkedIn" style="color: #0a66c2;"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="social-premium-btn" aria-label="YouTube" style="color: #ff0000;"><i class="fab fa-youtube"></i></a>
+              <a href="#" class="social-premium-btn" aria-label="Instagram" style="color: #e1306c;"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-premium-btn" aria-label="TikTok" style="color: #00f2fe;"><i class="fab fa-tiktok"></i></a>
+            </div>
           </div>
-
-          <!-- Calendar CTA -->
-          <div style="margin-top: 24px; padding: 28px; background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.08)); border: 1px solid rgba(59,130,246,0.15); border-radius: var(--radius-lg); text-align: center;">
-            <i class="fas fa-calendar-check" style="font-size: 1.5rem; color: var(--color-blue); margin-bottom: 10px;"></i>
-            <h4 style="font-size: 1rem; margin-bottom: 6px;">Prefer to Self-Schedule?</h4>
-            <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 14px;">Pick a time that works best directly on our calendar.</p>
-            <a href="#" class="btn btn--outline-blue btn--sm">Open Calendar →</a>
-          </div>
+          
         </div>
-
-        <!-- Right: Form -->
-        <div class="form-card">
-          <h2>Book a Demo</h2>
-          <p>Fill out the form and our team will respond within 24 hours.</p>
-
-          <form class="contact-form" id="contact-form" style="max-width: 100%;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-              <div class="form-group">
-                <label for="first-name">First Name *</label>
-                <input type="text" id="first-name" name="first_name" placeholder="John" required>
+        
+        <!-- Right: Glassmorphism Form -->
+        <div style="display: flex; flex-direction: column; height: 100%;">
+          <div class="premium-form-card">
+            <h2 style="font-size: 2.25rem; font-weight: 700; margin-bottom: 8px;" class="text-gradient">Request Access</h2>
+            <p style="font-size: 1.05rem; color: #e2e8f0; margin-bottom: 40px;">Tell us about your organization and we'll connect you directly.</p>
+            
+            <form id="contact-form" style="display: flex; flex-direction: column; flex-grow: 1;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group-p">
+                  <label class="form-label" for="first-name">First Name</label>
+                  <input type="text" id="first-name" name="first_name" class="premium-input" placeholder="Jane" required>
+                </div>
+                <div class="form-group-p">
+                  <label class="form-label" for="last-name">Last Name</label>
+                  <input type="text" id="last-name" name="last_name" class="premium-input" placeholder="Doe" required>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="last-name">Last Name *</label>
-                <input type="text" id="last-name" name="last_name" placeholder="Smith" required>
+              
+              <div class="form-group-p">
+                <label class="form-label" for="email">Work Email</label>
+                <input type="email" id="email" name="email" class="premium-input" placeholder="jane@company.com" required>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="email">Work Email *</label>
-              <input type="email" id="email" name="email" placeholder="john@company.com" required>
-            </div>
-            <div class="form-group">
-              <label for="company">Company Name</label>
-              <input type="text" id="company" name="company" placeholder="Acme Corp">
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-              <div class="form-group">
-                <label for="team-size">Team Size</label>
-                <select id="team-size" name="team_size">
-                  <option value="">Select...</option>
-                  <option value="1-10">1–10</option>
-                  <option value="11-50">11–50</option>
-                  <option value="51-200">51–200</option>
-                  <option value="201-500">201–500</option>
-                  <option value="500+">500+</option>
-                </select>
+              
+              <div class="form-group-p">
+                <label class="form-label" for="company">Company</label>
+                <input type="text" id="company" name="company" class="premium-input" placeholder="Acme Corp">
               </div>
-              <div class="form-group">
-                <label for="interest">I'm interested in...</label>
-                <select id="interest" name="interest">
-                  <option value="">Select...</option>
-                  <option value="ai-worker-1">AI Worker #1</option>
-                  <option value="ai-worker-2">AI Worker #2</option>
-                  <option value="ai-worker-3">AI Worker #3</option>
-                  <option value="enterprise">Enterprise / Custom</option>
-                  <option value="all">All Workers</option>
-                </select>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group-p">
+                  <label class="form-label" for="team-size">Company Size</label>
+                  <select id="team-size" name="team_size" class="premium-input">
+                    <option value="">Select size</option>
+                    <option value="1-10">1–10 employees</option>
+                    <option value="11-50">11–50 employees</option>
+                    <option value="51-200">51–200 employees</option>
+                    <option value="201-500">201–500 employees</option>
+                    <option value="500+">500+ employees</option>
+                  </select>
+                </div>
+                <div class="form-group-p">
+                  <label class="form-label" for="interest">Primary Interest</label>
+                  <select id="interest" name="interest" class="premium-input">
+                    <option value="">Select option</option>
+                    <option value="sales">Sales Workers</option>
+                    <option value="support">Support Workers</option>
+                    <option value="enterprise">Enterprise Scaling</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="message">How can we help?</label>
-              <textarea id="message" name="message" rows="4" placeholder="Tell us about your goals, challenges, or questions..."></textarea>
-            </div>
-            <button type="submit" class="btn btn--primary btn--lg" style="width: 100%;">
-              Send Message <i class="fas fa-paper-plane" style="margin-left: 8px;"></i>
-            </button>
-            <p style="font-size: 0.75rem; color: var(--color-text-muted); text-align: center; margin-top: 8px;">By submitting, you agree to our <a href="privacy.html" style="color: var(--color-blue);">Privacy Policy</a>.</p>
-          </form>
+              
+              <div class="form-group-p" style="margin-bottom: auto;">
+                <label class="form-label" for="message">How can we help?</label>
+                <textarea id="message" name="message" rows="4" class="premium-input" placeholder="Briefly describe your goals or challenges..." style="resize: vertical; min-height: 100px;"></textarea>
+              </div>
+              
+              <div style="margin-top: 32px;">
+                <button type="submit" class="btn-premium">
+                  Submit Request <i class="fas fa-arrow-right"></i>
+                </button>
+                
+                <p style="font-size: 0.8rem; color: var(--color-text-muted); text-align: center; margin-top: 24px; line-height: 1.5;">
+                  By submitting, you agree to our <br><a href="privacy.html" style="color: white; text-decoration: underline; transition: color 0.2s;">Privacy Policy</a>.
+                </p>
+              </div>
+            </form>
+          </div>
         </div>
 
       </div>
@@ -191,7 +233,16 @@
     <div class="container">
       <div class="footer__grid">
         <div class="footer__brand">
-          <a href="index.html" class="header__logo" style="margin-bottom: 8px;"><div class="header__logo-icon">S</div>Synva.ai</a>
+          <a href="index.html" class="header__logo" style="margin-bottom: 8px;">
+        <svg width="44" height="44" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.3));">
+          <path d="M 20 2 L 34 10 L 20 18 L 6 10 Z" fill="#a855f7" />
+          <path d="M 34 10 L 34 26 L 20 34 L 20 18 Z" fill="#6366f1" />
+          <path d="M 6 10 L 20 18 L 20 34 L 6 26 Z" fill="rgba(79, 70, 229, 0.4)" />
+          <path d="M 12 14.5 L 27.5 5.5" stroke="#050505" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 28 19.5 L 12.5 28.5" stroke="#050505" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        Synva
+      </a>
           <p>Synva builds autonomous AI workers that handle the entire B2B revenue cycle.</p>
           <div style="display: flex; gap: 12px; margin-top: 16px;">
             <a href="#" target="_blank" aria-label="X" style="width: 36px; height: 36px; border-radius: 8px; background: var(--color-bg-alt); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); transition: var(--transition-base);"><i class="fab fa-x-twitter"></i></a>
