@@ -3,9 +3,6 @@
    Design System & Global Styles
    ================================================================ */
 
-/* --- Google Fonts --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
 /* --- CSS Custom Properties --- */
 :root {
   /* Colors */
@@ -155,6 +152,11 @@ p {
   border-top: 1px solid var(--color-border);
 }
 
+.section--deferred {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 1200px;
+}
+
 .text-center {
   text-align: center;
 }
@@ -171,6 +173,11 @@ p {
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--color-border);
   transition: var(--transition-base);
+}
+
+.header.header--scrolled {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+  background: rgba(5, 5, 5, 0.95);
 }
 
 .header__inner {
@@ -1094,6 +1101,18 @@ p {
 
 .contact-bar__item i {
   color: var(--color-blue);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .contact-bar__divider {

@@ -4,15 +4,17 @@
    ================================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // --- Mobile Menu Toggle ---
   const mobileBtn = document.querySelector('.header__mobile-btn');
   const nav = document.querySelector('.header__nav');
 
   if (mobileBtn && nav) {
+    const spans = mobileBtn.querySelectorAll('span');
+
     mobileBtn.addEventListener('click', () => {
       nav.classList.toggle('open');
-      const spans = mobileBtn.querySelectorAll('span');
       if (nav.classList.contains('open')) {
         spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
         spans[1].style.opacity = '0';
@@ -40,6 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const revealElements = document.querySelectorAll('.reveal');
 
   if (revealElements.length > 0) {
+    if (prefersReducedMotion) {
+      revealElements.forEach(el => el.classList.add('visible'));
+    } else {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -53,22 +58,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     revealElements.forEach(el => observer.observe(el));
+    }
   }
 
   // --- Header Background on Scroll ---
   const header = document.querySelector('.header');
   if (header) {
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.scrollY;
-      if (currentScroll > 50) {
-        header.style.borderBottomColor = 'rgba(255, 255, 255, 0.1)';
-        header.style.background = 'rgba(5, 5, 5, 0.95)';
-      } else {
-        header.style.borderBottomColor = 'rgba(255, 255, 255, 0.05)';
-        header.style.background = 'rgba(5, 5, 5, 0.8)';
+    let ticking = false;
+    let isScrolled = false;
+
+    const syncHeader = () => {
+      const shouldBeScrolled = window.scrollY > 50;
+      if (shouldBeScrolled !== isScrolled) {
+        header.classList.toggle('header--scrolled', shouldBeScrolled);
+        isScrolled = shouldBeScrolled;
       }
-      lastScroll = currentScroll;
+      ticking = false;
+    };
+
+    syncHeader();
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(syncHeader);
+      }
     }, { passive: true });
   }
 
@@ -102,40 +115,49 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Smooth Number Counter Animation ---
   const counters = document.querySelectorAll('[data-counter]');
   if (counters.length > 0) {
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const target = el.getAttribute('data-counter');
-          const suffix = el.getAttribute('data-suffix') || '';
-          const prefix = el.getAttribute('data-prefix') || '';
-
-          // Parse target (handle % and x)
-          const numericTarget = parseFloat(target);
-          const duration = 2000;
-          const start = performance.now();
-
-          function update(now) {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            // Ease out cubic
-            const eased = 1 - Math.pow(1 - progress, 3);
-            const current = Math.round(eased * numericTarget);
-            el.textContent = prefix + current + suffix;
-            if (progress < 1) {
-              requestAnimationFrame(update);
-            } else {
-              el.textContent = prefix + target + suffix;
-            }
-          }
-
-          requestAnimationFrame(update);
-          counterObserver.unobserve(el);
-        }
+    if (prefersReducedMotion) {
+      counters.forEach(el => {
+        const target = el.getAttribute('data-counter');
+        const suffix = el.getAttribute('data-suffix') || '';
+        const prefix = el.getAttribute('data-prefix') || '';
+        el.textContent = prefix + target + suffix;
       });
-    }, { threshold: 0.5 });
+    } else {
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = el.getAttribute('data-counter');
+            const suffix = el.getAttribute('data-suffix') || '';
+            const prefix = el.getAttribute('data-prefix') || '';
 
-    counters.forEach(el => counterObserver.observe(el));
+            // Parse target (handle % and x)
+            const numericTarget = parseFloat(target);
+            const duration = 2000;
+            const start = performance.now();
+
+            function update(now) {
+              const elapsed = now - start;
+              const progress = Math.min(elapsed / duration, 1);
+              // Ease out cubic
+              const eased = 1 - Math.pow(1 - progress, 3);
+              const current = Math.round(eased * numericTarget);
+              el.textContent = prefix + current + suffix;
+              if (progress < 1) {
+                requestAnimationFrame(update);
+              } else {
+                el.textContent = prefix + target + suffix;
+              }
+            }
+
+            requestAnimationFrame(update);
+            counterObserver.unobserve(el);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      counters.forEach(el => counterObserver.observe(el));
+    }
   }
 
   // --- Contact Form Handling (static – just shows a thank you) ---
